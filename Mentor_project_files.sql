@@ -1,7 +1,5 @@
--- SQL Mini Project 10/10
--- SQL Mentor User Performance
 
--- DROP TABLE user_submissions;  
+-- SQL Mentor User Performance 
 
 CREATE TABLE user_submissions (
     id SERIAL PRIMARY KEY,
@@ -22,20 +20,7 @@ SELECT * FROM user_submissions;
 -- Q.5 Find the top 10 performers for each week.
 
 
--- Please note for each questions return current stats for the users
--- user_name, total points earned, correct submissions, incorrect submissions no
-
-
--- -------------------
--- My Solutions
--- -------------------
-
 -- Q.1 List all distinct users and their stats (return user_name, total_submissions, points earned)
-
--- SELECT 
--- 	COUNT(DISTINCT username)
--- FROM user_submissions
-
 
 SELECT 
 	username,
@@ -54,7 +39,6 @@ ORDER BY total_submissions DESC
 SELECT * FROM user_submissions;
 
 SELECT 
-	-- EXTRACT(DAY FROM submitted_at) as day,
 	TO_CHAR(submitted_at, 'DD-MM') as day,
 	username,
 	AVG(points) as daily_avg_points
@@ -64,20 +48,13 @@ ORDER BY username;
 
 
 -- Q.3 Find the top 3 users with the most correct submissions for each day.
-
 -- each day
 -- most correct submissions
-
-
-SELECT * FROM user_submissions;
-
-
 
 WITH daily_submissions
 AS
 (
 	SELECT 
-		-- EXTRACT(DAY FROM submitted_at) as day,
 		TO_CHAR(submitted_at, 'DD-MM') as daily,
 		username,
 		SUM(CASE 
@@ -132,7 +109,6 @@ SELECT *
 FROM
 (
 	SELECT 
-		-- WEEK()
 		EXTRACT(WEEK FROM submitted_at) as week_no,
 		username,
 		SUM(points) as total_points_earned,
